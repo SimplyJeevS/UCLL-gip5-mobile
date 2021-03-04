@@ -45,28 +45,35 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Button has been clicked");
 
-
-                Log.d(TAG, "Button has been clicked " +  "UserString is " + usernameField.getText().toString());
-
-                // Set preference to has logged in before.
-
-                SharedPreferences.Editor editor = preferences.edit();
-                // move this to the login click handler later
-                editor.putString("UsernamePref", usernameField.getText().toString());
-                editor.apply();
-                hasLoggedIn = preferences.getString("UsernamePref", "Undefined");
-
-
-                Log.d(TAG, "Preference has been changed");
-                // switching activity and checking if there has been logged in before
-                if (!hasLoggedIn.equals("Undefined"))
+                // Check for password as well later.
+                if (usernameField.getText().toString().equals(""))
                 {
-                    Log.d(TAG, "hasLoggedIn in if statement is " + hasLoggedIn);
-                    Log.d(TAG, "usernameString in if statement is " + usernameField.getText().toString());
-                    Log.d(TAG, "UsernamePref has been entered");
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    usernameField.setHint(getString(R.string.login_field_username_error));
+                    usernameField.setError(getString(R.string.login_field_username_error));
+                }else if(passwordField.getText().toString().equals(""))
+                {
+                    passwordField.setHint(getString(R.string.login_field_username_error));
+                    passwordField.setError(getString(R.string.login_field_username_error));
+                }else
+                {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    // move this to the login click handler later
+                    editor.putString("UsernamePref", usernameField.getText().toString());
+                    editor.apply();
+                    Log.d(TAG, "Preference has been changed");
+                    hasLoggedIn = preferences.getString("UsernamePref", "Undefined");
+
+                    // Switching activity and checking if there has been logged in before
+                    if (!hasLoggedIn.equals("Undefined"))
+                    {
+                        Log.d(TAG, "hasLoggedIn in if statement is " + hasLoggedIn);
+                        Log.d(TAG, "usernameString in if statement is " + usernameField.getText().toString());
+                        Log.d(TAG, "UsernamePref has been entered");
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
