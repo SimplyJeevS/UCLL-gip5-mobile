@@ -18,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView usernameField;
     TextView passwordField;
     Button loginButton;
+    String hasLoggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +27,12 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("PREFERENCE", 0);
 
-        boolean hasLoggedIn = preferences.getBoolean("HasLoggedIn",false);
+        hasLoggedIn = preferences.getString("UsernamePref","Undefined");
 
-        if (hasLoggedIn) {
+
+        Log.d(TAG,  "hasLoggedIn is " + hasLoggedIn);
+
+        if (!hasLoggedIn.equals("Undefined")) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
@@ -42,22 +46,25 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Log.d(TAG, "Button has been clicked");
+
+                Log.d(TAG, "Button has been clicked " +  "UserString is " + usernameField.getText().toString());
 
                 // Set preference to has logged in before.
 
                 SharedPreferences.Editor editor = preferences.edit();
                 // move this to the login click handler later
-                editor.putBoolean("HasLoggedIn", true);
+                editor.putString("UsernamePref", usernameField.getText().toString());
                 editor.apply();
+                hasLoggedIn = preferences.getString("UsernamePref", "Undefined");
 
 
                 Log.d(TAG, "Preference has been changed");
                 // switching activity and checking if there has been logged in before
-                // CURRENTLY DOESNT ENTER THE IF STATMENT
-                if (preferences.getBoolean("HasLoggedIn", true))
+                if (!hasLoggedIn.equals("Undefined"))
                 {
-                    Log.d(TAG, "HasLoggedIn has been entered");
+                    Log.d(TAG, "hasLoggedIn in if statement is " + hasLoggedIn);
+                    Log.d(TAG, "usernameString in if statement is " + usernameField.getText().toString());
+                    Log.d(TAG, "UsernamePref has been entered");
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
