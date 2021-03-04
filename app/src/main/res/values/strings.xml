@@ -30,6 +30,13 @@
     <string name="login_field_password">Enter password</string>
     <string name="login_button_text">Login</string>
 
+    <!-- Login strings settings -->
+    <string name="title_category_change_login">Update login details</string>
+    <string name="settings_login_username">Username</string>
+    <string name="settings_login_password">Password</string>
+    <string name="settings_login_field_username">Click to update username</string>
+    <string name="settings_login_field_password">Click to update password</string>
+
     <string-array name="match_mock_data_name">
         <item>match 1</item>
         <item>match 2</item>
