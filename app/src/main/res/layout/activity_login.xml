@@ -71,6 +71,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/fldPassword"
         app:layout_constraintStart_toStartOf="@+id/fldPassword"
-        app:layout_constraintTop_toBottomOf="@+id/fldPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/fldPassword"
+        android:onClick="onBtnLoginClick"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
