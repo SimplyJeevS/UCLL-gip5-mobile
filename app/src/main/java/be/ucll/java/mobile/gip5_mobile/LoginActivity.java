@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
     Button loginButton;
     String usernamePref;
     String passwordPref;
+    long idPref;
 
     private RequestQueue queue;
     SharedPreferences preferences;
@@ -45,9 +46,12 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
 
         usernamePref = preferences.getString("UsernamePref","Undefined");
         passwordPref = preferences.getString("PasswordPref","Undefined");
+        idPref = preferences.getLong("IdPref",-1);
 
         Log.d(TAG,  "usernamePref is " + usernamePref);
         Log.d(TAG,  "passwordPref is " + passwordPref);
+        Log.d(TAG,  "idPref is " + idPref);
+
 
         if (!usernamePref.equals("Undefined")) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -138,15 +142,20 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
 
                             // Convert REST String to Pojo's using GSON libraries
                             Persoon persoon = new Gson().fromJson(jsono.toString(), Persoon.class);
+                            Log.d("Person to string: ", persoon.toString());
+                            System.out.println(persoon.getApi());
 
                             SharedPreferences.Editor editor = preferences.edit();
                             // move this to the login click handler later
                             editor.putString("UsernamePref", usernameString);
                             editor.putString("PasswordPref", passwordString);
+                            editor.putLong("IdPref", persoon.getId());
                             editor.apply();
                             Log.d(TAG, "Preference has been changed");
                             usernamePref = preferences.getString("UsernamePref", "Undefined");
                             passwordPref = preferences.getString("PasswordPref", "Undefined");
+                            idPref = preferences.getLong("IdPref", -1);
+
 
                             // Switching activity and checking if there has been logged in before
                             if (!usernamePref.equals("Undefined"))
@@ -155,6 +164,7 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
                                 Log.d(TAG, "usernameString in if statement is " + usernameString);
                                 Log.d(TAG, "passwordPref in if statement is " + passwordPref);
                                 Log.d(TAG, "passwordString in if statement is " + passwordString);
+                                Log.d(TAG, "idPref in if statement is " + idPref);
                                 Log.d(TAG, "UsernamePref has been entered");
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
