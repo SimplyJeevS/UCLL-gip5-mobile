@@ -1,20 +1,39 @@
 package be.ucll.java.mobile.gip5_mobile;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
+import java.util.List;
+
+import be.ucll.java.mobile.gip5_mobile.models.Persoon;
+import be.ucll.java.mobile.gip5_mobile.models.Wedstrijd;
 import be.ucll.java.mobile.gip5_mobile.recyclerview.MatchAdapter;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    //private static final String WEBSERVICE_API = "localhost:8180/gip5";
+    private static final String TAG = "main activity";
+    private static final String WEBSERVICE_API = "http://ucll-team3-gip5-web.eu-west-1.elasticbeanstalk.com";
+    private List<Wedstrijd> wedstrijdList;
+    private RequestQueue queue;
 
     String s1[], s2[];
     @Override
@@ -25,9 +44,46 @@ public class MainActivity extends AppCompatActivity {
         s1 = getResources().getStringArray(R.array.match_mock_data_name);
         s2 = getResources().getStringArray(R.array.match_mock_data_date);
 
-        MatchAdapter matchAdapter = new MatchAdapter(this, s1, s2);
+        MatchAdapter matchAdapter = new MatchAdapter(this,wedstrijdList );
         recyclerView.setAdapter(matchAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        queue = Volley.newRequestQueue(this);
+//  STILL HAVE TO PUT THE DATA FROM THE REQUEST IN A LIST LOOK AT MOVIE
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WEBSERVICE_API + "/rest/v1/wedstrijd", null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        // display response on Success
+                        Log.d("Response", response.toString());
+                        Log.d(TAG, "entered respone");
+                        JSONObject jsono = (JSONObject) response;
+
+                        // Log the output as debug information
+                        Log.d(TAG, jsono.toString());
+
+                        // Convert REST String to Pojo's using GSON libraries
+                        Persoon persoon = new Gson().fromJson(jsono.toString(), Persoon.class);
+                        Log.d("Person to string: ", persoon.toString());
+                        System.out.println(persoon.getApi());
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+
+                    }
+                }
+        );
+        queue.start();
+        queue.add(req);
+
     }
 
     @Override
@@ -57,4 +113,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
