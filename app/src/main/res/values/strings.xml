@@ -41,6 +41,15 @@
     <string name="settings_login_field_username">Click to update username</string>
     <string name="settings_login_field_password">Click to update password</string>
 
+    <!-- match details strings -->
+    <string name="send_message_button_text">Send message</string>
+    <string name="status_lable">Will you be there?</string>
+    <string name="status_playing">Playing</string>
+    <string name="status_sick">Sick</string>
+    <string name="status_reserve">Reserve</string>
+    <string name="text_message_hint">Enter your message here</string>
+
+
     <string-array name="match_mock_data_name">
         <item>match 1</item>
         <item>match 2</item>

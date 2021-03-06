@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="be.ucll.java.mobile.gip5_mobile">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,8 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gip5mobile"
         android:usesCleartextTraffic="true">
-        <!-- noHistory so you cant go back to the login activity after it has been see once-->
-        <activity android:name=".LoginActivity"
+        <activity android:name=".PlayerDetailsActivity"></activity>
+        <!-- noHistory so you cant go back to the login activity after it has been see once -->
+        <activity
+            android:name=".LoginActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,10 +26,8 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".MainActivity">
-
-        </activity>
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
