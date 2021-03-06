@@ -14,10 +14,9 @@ import be.ucll.java.mobile.gip5_mobile.recyclerview.MatchAdapter;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
+    //private static final String WEBSERVICE_API = "localhost:8180/gip5";
 
     String s1[], s2[];
-    int images[] = {R.drawable.football_temp, R.drawable.football_temp2, R.drawable.football_temp, R.drawable.football_temp2, R.drawable.football_temp, R.drawable.football_temp2};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         s1 = getResources().getStringArray(R.array.match_mock_data_name);
         s2 = getResources().getStringArray(R.array.match_mock_data_date);
 
-        MatchAdapter matchAdapter = new MatchAdapter(this, s1, s2, images);
+        MatchAdapter matchAdapter = new MatchAdapter(this, s1, s2);
         recyclerView.setAdapter(matchAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

@@ -16,14 +16,12 @@ import be.ucll.java.mobile.gip5_mobile.R;
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder> {
 
     String data1[], data2[];
-    int images[];
     Context context;
 
-    public MatchAdapter(Context ct, String matchName[], String matchDate[], int img[]){
+    public MatchAdapter(Context ct, String matchName[], String matchDate[]){
         context = ct;
         data1 = matchName;
         data2 = matchDate;
-        images = img;
     }
     @NonNull
     @Override
@@ -37,8 +35,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
     public void onBindViewHolder(@NonNull MatchHolder holder, int position) {
         holder.matchName.setText(data1[position]);
         holder.matchDate.setText(data2[position]);
-        holder.matchImage.setImageResource(images[position]);
-
     }
 
     @Override
@@ -55,8 +51,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
             super(itemView);
             matchName = itemView.findViewById(R.id.lblMatchName);
             matchDate = itemView.findViewById(R.id.lblMatchDate);
-            matchImage = itemView.findViewById(R.id.imgMatch);
-
         }
     }
 }
