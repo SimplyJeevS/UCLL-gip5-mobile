@@ -1,12 +1,10 @@
 package be.ucll.java.mobile.gip5_mobile.recyclerview;
 
 import android.content.Context;
-import android.service.autofill.FieldClassification;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,18 +15,21 @@ import java.util.List;
 import be.ucll.java.mobile.gip5_mobile.R;
 import be.ucll.java.mobile.gip5_mobile.models.Wedstrijd;
 
-public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder> {
+public class MatchAdapter_old extends RecyclerView.Adapter<MatchAdapter_old.MatchHolder> {
     private static final String TAG = "MatchAdapter";
 
     private Context context;
     private Wedstrijd wedstrijd;
     private List<Wedstrijd> list;
+    private TextView matchName, matchDate;
+    matchName = findViewById(R.id.lblMatchName);
+    matchDate = findViewById(R.id.lblMatchDate);
 
-    public MatchAdapter(Context ct, List<Wedstrijd> list){
+
+    public MatchAdapter_old(Context ct, List<Wedstrijd> list){
         context = ct;
         this.list = list;
-        //data1 = matchName;
-        //data2 = matchDate;
+
     }
     @NonNull
     @Override
@@ -52,7 +53,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
 
     public class MatchHolder extends RecyclerView.ViewHolder {
 
-        TextView matchName, matchDate;
+        private TextView matchName, matchDate;
 
         public MatchHolder(@NonNull View itemView) {
             super(itemView);
