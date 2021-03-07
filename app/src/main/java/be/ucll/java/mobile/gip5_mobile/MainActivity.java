@@ -1,7 +1,6 @@
 package be.ucll.java.mobile.gip5_mobile;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,14 +21,17 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import be.ucll.java.mobile.gip5_mobile.models.Persoon;
 import be.ucll.java.mobile.gip5_mobile.models.Wedstrijd;
-import be.ucll.java.mobile.gip5_mobile.recyclerview.MatchAdapter;
+import be.ucll.java.mobile.gip5_mobile.recyclerview.MatchAdapter_old;
+import be.ucll.java.mobile.gip5_mobile.recyclerview.MatchesAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
+    private MatchesAdapter adapter;
     private static final String TAG = "main activity";
     private static final String WEBSERVICE_API = "http://ucll-team3-gip5-web.eu-west-1.elasticbeanstalk.com";
     private List<Wedstrijd> wedstrijdList;
@@ -42,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.RvMatches);
 
-        MatchAdapter matchAdapter = new MatchAdapter(this,wedstrijdList );
-        recyclerView.setAdapter(matchAdapter);
+        //MatchAdapter_old matchAdapterOld = new MatchAdapter_old(this,wedstrijdList );
+        //recyclerView.setAdapter(matchAdapterOld);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
@@ -64,10 +66,12 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, jsono.toString());
 
                         // Convert REST String to Pojo's using GSON libraries
-                        Persoon persoon = new Gson().fromJson(jsono.toString(), Persoon.class);
-                        Log.d("Person to string: ", persoon.toString());
-                        System.out.println(persoon.getApi());
+                        List<Wedstrijd> wedstrijdReqList = new Gson().fromJson(jsono.toString(), List.class);
+                        Log.d("wedstrijd to string: ", wedstrijdReqList.toString());
 
+                        if (wedstrijdReqList != null){
+                            
+                        }
                     }
                 },
                 new Response.ErrorListener()

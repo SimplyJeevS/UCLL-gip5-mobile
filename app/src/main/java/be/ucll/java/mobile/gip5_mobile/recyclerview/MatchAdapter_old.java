@@ -22,8 +22,6 @@ public class MatchAdapter_old extends RecyclerView.Adapter<MatchAdapter_old.Matc
     private Wedstrijd wedstrijd;
     private List<Wedstrijd> list;
     private TextView matchName, matchDate;
-    matchName = findViewById(R.id.lblMatchName);
-    matchDate = findViewById(R.id.lblMatchDate);
 
 
     public MatchAdapter_old(Context ct, List<Wedstrijd> list){
