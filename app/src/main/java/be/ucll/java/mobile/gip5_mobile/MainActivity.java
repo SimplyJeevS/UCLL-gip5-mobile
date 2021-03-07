@@ -29,20 +29,18 @@ import be.ucll.java.mobile.gip5_mobile.models.Wedstrijd;
 import be.ucll.java.mobile.gip5_mobile.recyclerview.MatchAdapter;
 
 public class MainActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private static final String TAG = "main activity";
     private static final String WEBSERVICE_API = "http://ucll-team3-gip5-web.eu-west-1.elasticbeanstalk.com";
     private List<Wedstrijd> wedstrijdList;
     private RequestQueue queue;
 
-    String s1[], s2[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         recyclerView = findViewById(R.id.RvMatches);
-        s1 = getResources().getStringArray(R.array.match_mock_data_name);
-        s2 = getResources().getStringArray(R.array.match_mock_data_date);
 
         MatchAdapter matchAdapter = new MatchAdapter(this,wedstrijdList );
         recyclerView.setAdapter(matchAdapter);

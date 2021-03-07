@@ -27,17 +27,17 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
     private static final String TAG = "login activity";
     private static final String WEBSERVICE_API = "http://ucll-team3-gip5-web.eu-west-1.elasticbeanstalk.com";
 
-    TextView usernameField;
-    TextView passwordField;
-    Button loginButton;
-    String usernamePref;
-    String passwordPref;
-    String usernameString;
-    String passwordString;
-    long idPref;
+    private TextView usernameField;
+    private TextView passwordField;
+    private Button loginButton;
+    private String usernamePref;
+    private String passwordPref;
+    private String usernameString;
+    private String passwordString;
+    private long idPref;
 
     private RequestQueue queue;
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

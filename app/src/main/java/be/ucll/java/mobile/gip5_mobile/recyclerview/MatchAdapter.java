@@ -20,8 +20,7 @@ import be.ucll.java.mobile.gip5_mobile.models.Wedstrijd;
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder> {
     private static final String TAG = "MatchAdapter";
 
-    String data1[], data2[];
-    Context context;
+    private Context context;
     private Wedstrijd wedstrijd;
     private List<Wedstrijd> list;
 
@@ -44,8 +43,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
         Log.d(TAG, "onBindViewHolder: "+ list.get(position));
         Wedstrijd w = list.get(position);
         //use set match function
-        holder.matchName.setText(data1[position]);
-        holder.matchDate.setText(data2[position]);
     }
 
     @Override
