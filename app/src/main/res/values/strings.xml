@@ -32,6 +32,8 @@
     <string name="login_field_password_error">Please fill in this field</string>
     <string name="login_field_username_error_wrong">Please fill in valid credentials</string>
     <string name="login_field_password_error_wrong">Please fill in valid credentials</string>
+    <string name="login_field_username_error_changed">Please update login details</string>
+    <string name="login_field_password_error_changed">Please update login details</string>
     <string name="login_button_text">Login</string>
 
     <!-- Login strings settings -->

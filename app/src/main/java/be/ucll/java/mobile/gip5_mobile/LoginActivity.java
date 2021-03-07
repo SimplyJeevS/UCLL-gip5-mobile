@@ -32,6 +32,8 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
     Button loginButton;
     String usernamePref;
     String passwordPref;
+    String usernameString;
+    String passwordString;
     long idPref;
 
     private RequestQueue queue;
@@ -53,10 +55,78 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
         Log.d(TAG,  "idPref is " + idPref);
 
 
-        if (!usernamePref.equals("Undefined")) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
+        queue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WEBSERVICE_API + "/rest/v1/login?email=" + usernameString + "&wachtwoord=" + passwordString, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        // display response on Success
+                        Log.d("Response", response.toString());
+                        Log.d(TAG, "entered respone");
+                        JSONObject jsono = (JSONObject) response;
+
+                        // Log the output as debug information
+                        Log.d(TAG, jsono.toString());
+
+                        // Convert REST String to Pojo's using GSON libraries
+                        Persoon persoon = new Gson().fromJson(jsono.toString(), Persoon.class);
+                        Log.d("Person to string: ", persoon.toString());
+                        System.out.println(persoon.getApi());
+
+                        SharedPreferences.Editor editor = preferences.edit();
+                        // move this to the login click handler later
+                        editor.putString("UsernamePref", usernameString);
+                        editor.putString("PasswordPref", passwordString);
+                        editor.putLong("IdPref", persoon.getId());
+                        editor.apply();
+                        Log.d(TAG, "Preference has been changed");
+
+                        Log.d(TAG, "Preference has been changed");
+                        usernamePref = preferences.getString("UsernamePref", "Undefined");
+                        passwordPref = preferences.getString("PasswordPref", "Undefined");
+                        idPref = preferences.getLong("IdPref", -1);
+
+                        // Switching activity and checking if there has been logged in before
+                        if (!usernamePref.equals("Undefined"))
+                        {
+                            Intent intent = new Intent(LoginActivity.this, PlayerDetailsActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
+                        //maybe add some user feedback
+                        if (usernameField.getText().length() != 0) {
+                            if (error.toString().equals("com.android.volley.AuthFailureError")) {
+                                usernameField.setText("");
+                                usernameField.setHint(getString(R.string.login_field_username_error_changed));
+                                usernameField.setError(getString(R.string.login_field_username_error_changed));
+
+                                passwordField.setText("");
+                                passwordField.setHint(getString(R.string.login_field_password_error_changed));
+                                passwordField.setError(getString(R.string.login_field_password_error_changed));
+                            }
+                        }
+
+                    }
+                }
+        );
+        queue.start();
+        queue.add(req);
+
+
+
+//        if (!usernamePref.equals("Undefined")) {
+//            Intent intent = new Intent(LoginActivity.this, PlayerDetailsActivity.class);
+//            startActivity(intent);
+//        }
 
         usernameField = findViewById(R.id.fldName);
         passwordField = findViewById(R.id.fldPassword);
@@ -109,8 +179,8 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
     public void onBtnLoginClick(View view){
         Log.d(TAG, "Button has been clicked");
 
-        String usernameString = usernameField.getText().toString();
-        String passwordString = passwordField.getText().toString();
+        usernameString = usernameField.getText().toString();
+        passwordString = passwordField.getText().toString();
 
         // Check for password as well later.
         if (usernameString.equals(""))
@@ -166,7 +236,7 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
                                 Log.d(TAG, "passwordString in if statement is " + passwordString);
                                 Log.d(TAG, "idPref in if statement is " + idPref);
                                 Log.d(TAG, "UsernamePref has been entered");
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, PlayerDetailsActivity.class);
                                 startActivity(intent);
                             }
                         }
