@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.format.DateTimeFormatter;
+
 import be.ucll.java.mobile.gip5_mobile.R;
 
 
@@ -43,14 +45,12 @@ public class MatchHolder extends RecyclerView.ViewHolder implements View.OnClick
     public void setWedstrijd(Wedstrijd w) {
         this.wedstrijd = w;
         if (wedstrijd != null) {
-            // Use the third party library Picasso to retrieve the image in the Internet
-            // and display it in the ImageView.
 
             // Set the movie title
-            matchName.setText("matchtest");
+            matchName.setText(w.getThuisploeg() +" \uD83C\uDD9A "+w.getTegenstander());
 
             // Set the movie year of release
-            matchDate.setText("07/05/2021");
+            matchDate.setText(w.getTijdstip().format(DateTimeFormatter.ofPattern("YYYY/MM/DD")));
 
         }
     }

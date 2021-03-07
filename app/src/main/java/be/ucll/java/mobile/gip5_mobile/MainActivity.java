@@ -26,10 +26,11 @@ import java.util.List;
 
 import be.ucll.java.mobile.gip5_mobile.models.Persoon;
 import be.ucll.java.mobile.gip5_mobile.models.Wedstrijd;
+import be.ucll.java.mobile.gip5_mobile.recyclerview.ClickHandler;
 import be.ucll.java.mobile.gip5_mobile.recyclerview.MatchAdapter_old;
 import be.ucll.java.mobile.gip5_mobile.recyclerview.MatchesAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ClickHandler {
     private RecyclerView recyclerView;
     private MatchesAdapter adapter;
     private static final String TAG = "main activity";
@@ -50,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         queue = Volley.newRequestQueue(this);
+        ClickHandler clickHandler = this; //deze wordt buitenaf gemaakt omdat het wordt gecalled in een functie die buiten de scope is voor het 'this' object.
+
 //  STILL HAVE TO PUT THE DATA FROM THE REQUEST IN A LIST LOOK AT MOVIE
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WEBSERVICE_API + "/rest/v1/wedstrijd", null,
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WEBSERVICE_API + "/rest/v1/wedstrijdMetPloegen", null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -70,7 +73,11 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("wedstrijd to string: ", wedstrijdReqList.toString());
 
                         if (wedstrijdReqList != null){
-                            
+                            //Wedstrijden gevonden
+                            adapter = new MatchesAdapter(clickHandler, wedstrijdReqList);
+
+                        }else{
+                            //geen wedstrijden gevonden
                         }
                     }
                 },
@@ -115,5 +122,17 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onMatchClick(Wedstrijd wedstrijd) {
+        //Wordt gecalled als er op een wedstrijd wordt geclick
+        // Open the browser and go to imdb.com for more detail about the movie
+        //Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(IMDB_WEBSITE_URL + movie.getImdbID()));
+        //startActivity(i);
 
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        //niet gebruiken, wordt ook niet gebruikt in de movie search
+    }
 }
