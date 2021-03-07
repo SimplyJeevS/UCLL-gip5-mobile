@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
 
         queue = Volley.newRequestQueue(this);
 
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WEBSERVICE_API + "/rest/v1/login?email=" + usernameString + "&wachtwoord=" + passwordString, null,
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WEBSERVICE_API + "/rest/v1/login?email=" + usernamePref + "&wachtwoord=" + passwordPref, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -76,25 +76,14 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
                         Log.d("Person to string: ", persoon.toString());
                         System.out.println(persoon.getApi());
 
-                        SharedPreferences.Editor editor = preferences.edit();
-                        // move this to the login click handler later
-                        editor.putString("UsernamePref", usernameString);
-                        editor.putString("PasswordPref", passwordString);
-                        editor.putLong("IdPref", persoon.getId());
-                        editor.apply();
-                        Log.d(TAG, "Preference has been changed");
-
                         Log.d(TAG, "Preference has been changed");
                         usernamePref = preferences.getString("UsernamePref", "Undefined");
                         passwordPref = preferences.getString("PasswordPref", "Undefined");
                         idPref = preferences.getLong("IdPref", -1);
 
                         // Switching activity and checking if there has been logged in before
-                        if (!usernamePref.equals("Undefined"))
-                        {
                             Intent intent = new Intent(LoginActivity.this, PlayerDetailsActivity.class);
                             startActivity(intent);
-                        }
                     }
                 },
                 new Response.ErrorListener()
