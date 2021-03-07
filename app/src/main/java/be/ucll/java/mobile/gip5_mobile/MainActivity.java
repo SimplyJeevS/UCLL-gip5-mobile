@@ -114,20 +114,16 @@ public class MainActivity extends AppCompatActivity implements ClickHandler {
             Intent i = new Intent(this, SettingsActivity.class);
             startActivity(i);
             return true;
-        } else if (id == R.id.action_website){
-            // Replace with website url to front end ?
-            Intent web = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.ucll.be"));
-            startActivity(web);
         }
 
         return super.onOptionsItemSelected(item);
     }
     @Override
     public void onMatchClick(Wedstrijd wedstrijd) {
-        //Wordt gecalled als er op een wedstrijd wordt geclick
-        // Open the browser and go to imdb.com for more detail about the movie
-        //Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(IMDB_WEBSITE_URL + movie.getImdbID()));
-        //startActivity(i);
+//        //Wordt gecalled als er op een wedstrijd wordt geclick
+//        // Open the browser and go to imdb.com for more detail about the movie
+//        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(IMDB_WEBSITE_URL + movie.getImdbID()));
+//        startActivity(i);
 
     }
 
