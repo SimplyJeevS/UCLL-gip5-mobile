@@ -1,6 +1,7 @@
 package be.ucll.java.mobile.gip5_mobile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,10 +16,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements ClickHandler {
     private static final String WEBSERVICE_API = "http://ucll-team3-gip5-web.eu-west-1.elasticbeanstalk.com";
     private List<Wedstrijd> wedstrijdList;
     private RequestQueue queue;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements ClickHandler {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.RvMatches);
+
+        preferences = getSharedPreferences("PREFERENCE", 0);
 
         //MatchAdapter_old matchAdapterOld = new MatchAdapter_old(this,wedstrijdList );
         //recyclerView.setAdapter(matchAdapterOld);
@@ -54,16 +60,16 @@ public class MainActivity extends AppCompatActivity implements ClickHandler {
         ClickHandler clickHandler = this; //deze wordt buitenaf gemaakt omdat het wordt gecalled in een functie die buiten de scope is voor het 'this' object.
 
 //  STILL HAVE TO PUT THE DATA FROM THE REQUEST IN A LIST LOOK AT MOVIE
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, WEBSERVICE_API + "/rest/v1/wedstrijdMetPloegen", null,
-                new Response.Listener<JSONObject>()
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WEBSERVICE_API + "/rest/v1/wedstrijdMetPloegen?api=" + preferences.getString("ApiPref","Undefined"), null,
+                new Response.Listener<JSONArray>()
                 {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
 
                         // display response on Success
                         Log.d("Response", response.toString());
                         Log.d(TAG, "entered respone");
-                        JSONObject jsono = (JSONObject) response;
+                        JSONArray jsono = (JSONArray) response;
 
                         // Log the output as debug information
                         Log.d(TAG, jsono.toString());
@@ -79,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements ClickHandler {
                         }else{
                             //geen wedstrijden gevonden
                         }
+                        recyclerView.setAdapter(adapter);
                     }
                 },
                 new Response.ErrorListener()

@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
     private Button loginButton;
     private String usernamePref;
     private String passwordPref;
+    private String apiPref;
     private String usernameString;
     private String passwordString;
     private long idPref;
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
 
         usernamePref = preferences.getString("UsernamePref","Undefined");
         passwordPref = preferences.getString("PasswordPref","Undefined");
+        apiPref = preferences.getString("ApiPref","Undefined");
         idPref = preferences.getLong("IdPref",-1);
 
         Log.d(TAG,  "usernamePref is " + usernamePref);
@@ -208,11 +210,13 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
                             // move this to the login click handler later
                             editor.putString("UsernamePref", usernameString);
                             editor.putString("PasswordPref", passwordString);
+                            editor.putString("ApiPref", persoon.getApi());
                             editor.putLong("IdPref", persoon.getId());
                             editor.apply();
                             Log.d(TAG, "Preference has been changed");
                             usernamePref = preferences.getString("UsernamePref", "Undefined");
                             passwordPref = preferences.getString("PasswordPref", "Undefined");
+                            passwordPref = preferences.getString("ApiPref", "Undefined");
                             idPref = preferences.getLong("IdPref", -1);
 
 
@@ -223,6 +227,7 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
                                 Log.d(TAG, "usernameString in if statement is " + usernameString);
                                 Log.d(TAG, "passwordPref in if statement is " + passwordPref);
                                 Log.d(TAG, "passwordString in if statement is " + passwordString);
+                                Log.d(TAG, "ApiPref in if statement is " + apiPref);
                                 Log.d(TAG, "idPref in if statement is " + idPref);
                                 Log.d(TAG, "UsernamePref has been entered");
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
