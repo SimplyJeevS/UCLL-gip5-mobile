@@ -37,8 +37,9 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchHolder> {
     @Override
     public void onBindViewHolder(@NonNull MatchHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: " + list.get(position));
-        Wedstrijd w = list.get(position);
-        holder.setWedstrijd(w);
+        //Wedstrijd w = list.get(position);
+        System.out.println(list.get(position).getClass());
+        //holder.setWedstrijd(w);
     }
 
     @Override
