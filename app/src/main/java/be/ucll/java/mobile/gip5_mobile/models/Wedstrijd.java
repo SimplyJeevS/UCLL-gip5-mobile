@@ -1,17 +1,28 @@
 package be.ucll.java.mobile.gip5_mobile.models;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Date;
 
 import java.time.LocalDateTime;
 public class Wedstrijd {
-    private LocalDateTime tijdstip;
+    @Expose
+    private Double id;
+    @Expose
+    private String tijdstip;
+    @Expose
     private String locatie;
-    private Long thuisploegId;
-    private Long tegenstanderId;
+    @Expose
+    private Double thuisploegId;
+    @Expose
+    private Double tegenstanderId;
+    @Expose
     private String tegenstander;
+    @Expose
     private String thuisploeg;
 
-    public Wedstrijd(LocalDateTime tijdstip, String locatie, Long thuisploegId, Long tegenstanderId, String tegenstander, String thuisploeg) {
+    public Wedstrijd(Double id,String tijdstip, String locatie, Double thuisploegId, Double tegenstanderId, String tegenstander, String thuisploeg) {
+        this.id = id;
         this.tijdstip = tijdstip;
         this.locatie = locatie;
         this.thuisploegId = thuisploegId;
@@ -20,11 +31,11 @@ public class Wedstrijd {
         this.thuisploeg = thuisploeg;
     }
 
-    public LocalDateTime getTijdstip() {
+    public String getTijdstip() {
         return tijdstip;
     }
 
-    public void setTijdstip(LocalDateTime tijdstip) {
+    public void setTijdstip(String tijdstip) {
         this.tijdstip = tijdstip;
     }
 
@@ -36,19 +47,19 @@ public class Wedstrijd {
         this.locatie = locatie;
     }
 
-    public Long getThuisploegId() {
+    public Double getThuisploegId() {
         return thuisploegId;
     }
 
-    public void setThuisploegId(Long thuisploegId) {
+    public void setThuisploegId(Double thuisploegId) {
         this.thuisploegId = thuisploegId;
     }
 
-    public Long getTegenstanderId() {
+    public Double getTegenstanderId() {
         return tegenstanderId;
     }
 
-    public void setTegenstanderId(Long tegenstanderId) {
+    public void setTegenstanderId(Double tegenstanderId) {
         this.tegenstanderId = tegenstanderId;
     }
 
@@ -69,4 +80,11 @@ public class Wedstrijd {
     }
 
 
+    public Double getId() {
+        return id;
+    }
+
+    public void setId(Double id) {
+        this.id = id;
+    }
 }

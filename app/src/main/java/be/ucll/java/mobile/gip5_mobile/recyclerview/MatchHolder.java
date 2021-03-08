@@ -50,7 +50,7 @@ public class MatchHolder extends RecyclerView.ViewHolder implements View.OnClick
             matchName.setText(w.getThuisploeg() +" \uD83C\uDD9A "+w.getTegenstander());
 
             // Set the movie year of release
-            matchDate.setText(w.getTijdstip().format(DateTimeFormatter.ofPattern("YYYY/MM/DD")));
+            //matchDate.setText(w.getTijdstip().format(DateTimeFormatter.ofPattern("YYYY/MM/DD")));
 
         }
     }

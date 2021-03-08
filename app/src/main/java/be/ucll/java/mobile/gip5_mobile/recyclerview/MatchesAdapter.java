@@ -8,13 +8,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 import java.util.List;
 
 import be.ucll.java.mobile.gip5_mobile.R;
 import be.ucll.java.mobile.gip5_mobile.models.Wedstrijd;
 
 public class MatchesAdapter extends RecyclerView.Adapter<MatchHolder> {
-    private static final String TAG = "MoviesAdapter";
+    private static final String TAG = "MatchAdapter";
 
     private ClickHandler clickHandler;
     private List<Wedstrijd> list;
@@ -37,9 +39,9 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchHolder> {
     @Override
     public void onBindViewHolder(@NonNull MatchHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: " + list.get(position));
-        //Wedstrijd w = list.get(position);
-        System.out.println(list.get(position).getClass());
-        //holder.setWedstrijd(w);
+        Wedstrijd w = list.get(position);
+        //System.out.println(list.get(position).getClass());
+        holder.setWedstrijd(w);
     }
 
     @Override

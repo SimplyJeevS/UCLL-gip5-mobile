@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +21,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,11 +33,17 @@ import java.util.List;
 
 import be.ucll.java.mobile.gip5_mobile.models.Persoon;
 import be.ucll.java.mobile.gip5_mobile.models.Wedstrijd;
+import be.ucll.java.mobile.gip5_mobile.models.WedstrijdInterface;
+import be.ucll.java.mobile.gip5_mobile.models.Wedstrijden;
 import be.ucll.java.mobile.gip5_mobile.recyclerview.ClickHandler;
 import be.ucll.java.mobile.gip5_mobile.recyclerview.MatchAdapter_old;
 import be.ucll.java.mobile.gip5_mobile.recyclerview.MatchesAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements ClickHandler {
+public class MainActivity extends AppCompatActivity implements ClickHandler, Response.Listener, Response.ErrorListener {
     private RecyclerView recyclerView;
     private MatchesAdapter adapter;
     private static final String TAG = "main activity";
@@ -58,45 +68,29 @@ public class MainActivity extends AppCompatActivity implements ClickHandler {
 
         queue = Volley.newRequestQueue(this);
         ClickHandler clickHandler = this; //deze wordt buitenaf gemaakt omdat het wordt gecalled in een functie die buiten de scope is voor het 'this' object.
-
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(WEBSERVICE_API + "/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//         WedstrijdInterface request = retrofit.create(WedstrijdInterface.class);
+//        Call<List<Wedstrijd>> call = request.getWedstrijden();
+//        call.enqueue(new Callback<List<Wedstrijd>>() {
+//            @Override
+//            public void onResponse(Call<List<Wedstrijd>> call, retrofit2.Response<List<Wedstrijd>> response) {
+//                System.out.println(response.body());
+//                //Toast.makeText(MainActivity.this,response.body().toString(),Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Wedstrijd>> call, Throwable t) {
+//                Log.e("Error",t.getMessage());
+//            }
+//
+//        });
 //  STILL HAVE TO PUT THE DATA FROM THE REQUEST IN A LIST LOOK AT MOVIE
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WEBSERVICE_API + "/rest/v1/wedstrijdMetPloegen?api=" + preferences.getString("ApiPref","Undefined"), null,
-                new Response.Listener<JSONArray>()
-                {
-                    @Override
-                    public void onResponse(JSONArray response) {
+        JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, WEBSERVICE_API + "/rest/v1/wedstrijdMetPloegen?api=" + preferences.getString("ApiPref","Undefined"), null,this,this);
 
-                        // display response on Success
-                        Log.d("Response", response.toString());
-                        Log.d(TAG, "entered respone");
-                        JSONArray jsono = (JSONArray) response;
-
-                        // Log the output as debug information
-                        Log.d(TAG, jsono.toString());
-
-                        // Convert REST String to Pojo's using GSON libraries
-                        List<Wedstrijd> wedstrijdReqList = new Gson().fromJson(jsono.toString(), List.class);
-                        Log.d("wedstrijd to string: ", wedstrijdReqList.toString());
-
-                        if (wedstrijdReqList != null){
-                            //Wedstrijden gevonden
-                            adapter = new MatchesAdapter(clickHandler, wedstrijdReqList);
-
-                        }else{
-                            //geen wedstrijden gevonden
-                        }
-                        recyclerView.setAdapter(adapter);
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", error.toString());
-
-                    }
-                }
-        );
         queue.start();
         queue.add(req);
 
@@ -137,5 +131,37 @@ public class MainActivity extends AppCompatActivity implements ClickHandler {
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         //niet gebruiken, wordt ook niet gebruikt in de movie search
+    }
+
+    @Override
+    public void onResponse(Object response) {
+        // display response on Success
+        Log.d("Response", response.toString());
+        Log.d(TAG, "entered respone");
+        JSONArray jsono = (JSONArray) response;
+
+        // Log the output as debug information
+        Log.d(TAG, jsono.toString());
+
+        // Convert REST String to Pojo's using GSON libraries
+        Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm:ss").create();
+        ArrayList<Wedstrijd> wedstrijdList = gson.fromJson(jsono.toString(), ArrayList.class);
+        Log.d("wedstrijd to string: ", wedstrijdList.toString());
+
+        if (wedstrijdList != null){
+            //Wedstrijden gevonden
+            adapter = new MatchesAdapter(this, wedstrijdList);
+
+        }else{
+            //geen wedstrijden gevonden
+        }
+        recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.d("Error.Response", error.toString());
+
     }
 }

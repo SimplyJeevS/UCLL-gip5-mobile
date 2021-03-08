@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
                         idPref = preferences.getLong("IdPref", -1);
 
                         // Switching activity and checking if there has been logged in before
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, PlayerDetailsActivity.class);
                             startActivity(intent);
                     }
                 },
@@ -230,7 +230,7 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
                                 Log.d(TAG, "ApiPref in if statement is " + apiPref);
                                 Log.d(TAG, "idPref in if statement is " + idPref);
                                 Log.d(TAG, "UsernamePref has been entered");
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, PlayerDetailsActivity.class);
                                 startActivity(intent);
                             }
                         }
