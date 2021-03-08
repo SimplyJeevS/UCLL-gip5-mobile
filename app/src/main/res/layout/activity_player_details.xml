@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lbbDtMatchTime"
+        android:id="@+id/lblDtMatchTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -69,20 +69,44 @@
         <RadioButton
             android:id="@+id/rbStatusPlaying"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:text="@string/status_playing" />
 
         <RadioButton
             android:id="@+id/rbStatusReserve"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:text="@string/status_reserve" />
 
         <RadioButton
             android:id="@+id/rbStatusSick"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:text="@string/status_sick" />
+
+        <RadioButton
+            android:id="@+id/rbStatusUnavailable"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/status_unavailable" />
+
+        <RadioButton
+            android:id="@+id/rbStatusInvited"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/status_invited" />
+
+        <RadioButton
+            android:id="@+id/rbStatusUninvited"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/status_uninvited" />
+
+        <RadioButton
+            android:id="@+id/rbStatusUnanswered"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/status_unanswered" />
     </RadioGroup>
 
     <EditText
