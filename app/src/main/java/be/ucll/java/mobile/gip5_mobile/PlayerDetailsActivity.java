@@ -2,7 +2,6 @@ package be.ucll.java.mobile.gip5_mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,16 +17,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import be.ucll.java.mobile.gip5_mobile.models.Deelname;
-import be.ucll.java.mobile.gip5_mobile.models.Persoon;
 import be.ucll.java.mobile.gip5_mobile.models.Wedstrijd;
 
 public class PlayerDetailsActivity extends AppCompatActivity /*implements Response.ErrorListener, Response.Listener<JSONObject>*/ {
@@ -54,8 +48,8 @@ public class PlayerDetailsActivity extends AppCompatActivity /*implements Respon
         matchDate = findViewById(R.id.lblDtMatchTime);
         matchLocation = findViewById(R.id.lblDtMatchLocation);
         radioGroup = findViewById(R.id.rbgPlayerStatus);
-        messageButton = findViewById(R.id.btnSendMessage);
-        messageField = findViewById(R.id.btnSendMessage);
+        messageButton = findViewById(R.id.btnSendMessagebtn);
+        messageField = findViewById(R.id.fldPlayerMessage);
 
         preferences = getSharedPreferences("PREFERENCE", 0);
 
@@ -101,7 +95,7 @@ public class PlayerDetailsActivity extends AppCompatActivity /*implements Respon
         try {
             postData.put("persoonId", idPref);
             postData.put("wedstrijdId", matchIdPref);
-            postData.put("comentaar", "");
+            postData.put("commentaar", "");
             postData.put("status", 3);
 
         } catch (JSONException e) {
@@ -154,108 +148,108 @@ public class PlayerDetailsActivity extends AppCompatActivity /*implements Respon
 
                 System.out.println("Selected radio button " + selectedId);
                 switch (selectedId){
-                    case 2131296538:
+                    case 2131296537:
                         System.out.println("Playing");
                         try {
                             putData.put("persoonId", idPref);
                             putData.put("wedstrijdId", matchIdPref);
-                            putData.put("comentaar", messageText);
+                            putData.put("commentaar", messageText);
                             putData.put("status", 5);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         break;
-                    case 2131296539:
+                    case 2131296538:
                         System.out.println("Reserve");
                         try {
                             putData.put("persoonId", idPref);
                             putData.put("wedstrijdId", matchIdPref);
-                            putData.put("comentaar", messageText);
+                            putData.put("commentaar", messageText);
                             putData.put("status", 2);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         break;
-                    case 2131296540:
+                    case 2131296539:
                         System.out.println("Sick");
                         try {
                             putData.put("persoonId", idPref);
                             putData.put("wedstrijdId", matchIdPref);
-                            putData.put("comentaar", messageText);
+                            putData.put("commentaar", messageText);
                             putData.put("status", 7);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         break;
-                    case 2131296542:
+                    case 2131296541:
                         System.out.println("Unavailable");
                         try {
                             putData.put("persoonId", idPref);
                             putData.put("wedstrijdId", matchIdPref);
-                            putData.put("comentaar", messageText);
+                            putData.put("commentaar", messageText);
                             putData.put("status", 1);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         break;
-                    case 2131296537:
+                    case 2131296536:
                         System.out.println("Invited");
                         try {
                             putData.put("persoonId", idPref);
                             putData.put("wedstrijdId", matchIdPref);
-                            putData.put("comentaar", messageText);
+                            putData.put("commentaar", messageText);
                             putData.put("status", 3);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         break;
-                    case 2131296543:
+                    case 2131296542:
                         System.out.println("Uninvited");
                         try {
                             putData.put("persoonId", idPref);
                             putData.put("wedstrijdId", matchIdPref);
-                            putData.put("comentaar", messageText);
+                            putData.put("commentaar", messageText);
                             putData.put("status", 4);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         break;
-                    case 2131296541:
+                    case 2131296540:
                         System.out.println("Unanswered");
                         try {
                             putData.put("persoonId", idPref);
                             putData.put("wedstrijdId", matchIdPref);
-                            putData.put("comentaar", messageText);
+                            putData.put("commentaar", messageText);
                             putData.put("status", 8);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         break;
-                    case 2131296536:
+                    case 2131296535:
                         System.out.println("Declined");
                         try {
                             putData.put("persoonId", idPref);
                             putData.put("wedstrijdId", matchIdPref);
-                            putData.put("comentaar", messageText);
+                            putData.put("commentaar", messageText);
                             putData.put("status", 6);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         break;
-                    case 2131296535:
+                    case 2131296534:
                         System.out.println("Available");
                         try {
                             putData.put("persoonId", idPref);
                             putData.put("wedstrijdId", matchIdPref);
-                            putData.put("comentaar", messageText);
+                            putData.put("commentaar", messageText);
                             putData.put("status", 0);
 
                         } catch (JSONException e) {
