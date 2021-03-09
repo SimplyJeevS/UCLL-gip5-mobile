@@ -42,6 +42,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchHolder> {
         Wedstrijd w = list.get(position);
         //System.out.println(list.get(position).getClass());
         holder.setWedstrijd(w);
+
+
     }
 
     @Override

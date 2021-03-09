@@ -44,7 +44,7 @@
     <string name="settings_login_field_password">Click to update password</string>
 
     <!-- match details strings -->
-    <string name="send_message_button_text">Send message</string>
+    <string name="send_message_button_text">Update status and message</string>
     <string name="status_lable">Will you be there?</string>
     <string name="status_playing">Playing</string>
     <string name="status_sick">Sick</string>
@@ -54,6 +54,8 @@
     <string name="status_uninvited">Uninvited</string>
     <string name="status_declined">Declined</string>
     <string name="status_unanswered">Unanswered</string>
+    <string name="status_available">Available</string>
+    <string name="send_status">Send status</string>
     <string name="text_message_hint">Enter your message here</string>
 
 

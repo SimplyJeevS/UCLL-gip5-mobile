@@ -23,6 +23,9 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements ClickHandler, Res
     private List<Wedstrijd> wedstrijdList;
     private RequestQueue queue;
     private SharedPreferences preferences;
+    private Long matchIdPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements ClickHandler, Res
         recyclerView = findViewById(R.id.RvMatches);
 
         preferences = getSharedPreferences("PREFERENCE", 0);
+
+        matchIdPref = preferences.getLong("MatchIdPref",-1);
 
         //MatchAdapter_old matchAdapterOld = new MatchAdapter_old(this,wedstrijdList );
         //recyclerView.setAdapter(matchAdapterOld);
@@ -121,10 +127,18 @@ public class MainActivity extends AppCompatActivity implements ClickHandler, Res
     }
     @Override
     public void onMatchClick(Wedstrijd wedstrijd) {
-//        //Wordt gecalled als er op een wedstrijd wordt geclick
-//        // Open the browser and go to imdb.com for more detail about the movie
-//        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(IMDB_WEBSITE_URL + movie.getImdbID()));
-//        startActivity(i);
+        // Does stuff when clicked.
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putLong("MatchIdPref", wedstrijd.getId());
+        editor.apply();
+        matchIdPref = preferences.getLong("MatchIdPref",-1);
+        System.out.println("Match id form getId: " + wedstrijd.getId());
+        Log.d(TAG, "Match id shared Pref: " + matchIdPref);
+
+        Intent intent = new Intent(MainActivity.this, PlayerDetailsActivity.class);
+        startActivity(intent);
 
     }
 
@@ -138,15 +152,28 @@ public class MainActivity extends AppCompatActivity implements ClickHandler, Res
         // display response on Success
         Log.d("Response", response.toString());
         Log.d(TAG, "entered respone");
-        JSONArray jsono = (JSONArray) response;
+        //JSONArray jsono = (JSONArray) response;
+        ArrayList<Wedstrijd> wedstrijdList= new ArrayList<>();
+        JsonArray jsonArray = new JsonParser().parse(response.toString()).getAsJsonArray();
+
+        for (JsonElement jsonObjectElement : jsonArray) {
+            JsonObject jsonObject = jsonObjectElement.getAsJsonObject();
+            Wedstrijd w = new Gson().fromJson(jsonObject, Wedstrijd.class);
+            wedstrijdList.add(w);
+            //put id's in an list for every match
+
+        }
+
 
         // Log the output as debug information
-        Log.d(TAG, jsono.toString());
+        //Log.d(TAG, jsono.toString());
 
         // Convert REST String to Pojo's using GSON libraries
-        Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm:ss").create();
-        ArrayList<Wedstrijd> wedstrijdList = gson.fromJson(jsono.toString(), ArrayList.class);
+        //Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy HH:mm:ss").create();
+        //ArrayList<Wedstrijd> wwwwedstrijdList = gson.fromJson(jsono.toString(), ArrayList.class);
         Log.d("wedstrijd to string: ", wedstrijdList.toString());
+
+
 
         if (wedstrijdList != null){
             //Wedstrijden gevonden
@@ -164,4 +191,5 @@ public class MainActivity extends AppCompatActivity implements ClickHandler, Res
         Log.d("Error.Response", error.toString());
 
     }
+
 }

@@ -7,21 +7,21 @@ import java.util.Date;
 import java.time.LocalDateTime;
 public class Wedstrijd {
     @Expose
-    private Double id;
+    private Long id;
     @Expose
     private String tijdstip;
     @Expose
     private String locatie;
     @Expose
-    private Double thuisploegId;
+    private Long thuisploegId;
     @Expose
-    private Double tegenstanderId;
+    private Long tegenstanderId;
     @Expose
     private String tegenstander;
     @Expose
     private String thuisploeg;
 
-    public Wedstrijd(Double id,String tijdstip, String locatie, Double thuisploegId, Double tegenstanderId, String tegenstander, String thuisploeg) {
+    public Wedstrijd(Long id,String tijdstip, String locatie, Long thuisploegId, Long tegenstanderId, String tegenstander, String thuisploeg) {
         this.id = id;
         this.tijdstip = tijdstip;
         this.locatie = locatie;
@@ -47,19 +47,19 @@ public class Wedstrijd {
         this.locatie = locatie;
     }
 
-    public Double getThuisploegId() {
+    public Long getThuisploegId() {
         return thuisploegId;
     }
 
-    public void setThuisploegId(Double thuisploegId) {
+    public void setThuisploegId(Long thuisploegId) {
         this.thuisploegId = thuisploegId;
     }
 
-    public Double getTegenstanderId() {
+    public Long getTegenstanderId() {
         return tegenstanderId;
     }
 
-    public void setTegenstanderId(Double tegenstanderId) {
+    public void setTegenstanderId(Long tegenstanderId) {
         this.tegenstanderId = tegenstanderId;
     }
 
@@ -80,11 +80,11 @@ public class Wedstrijd {
     }
 
 
-    public Double getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Double id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

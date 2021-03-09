@@ -84,8 +84,8 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
                         idPref = preferences.getLong("IdPref", -1);
 
                         // Switching activity and checking if there has been logged in before
-                            Intent intent = new Intent(LoginActivity.this, PlayerDetailsActivity.class);
-                            startActivity(intent);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
                     }
                 },
                 new Response.ErrorListener()
@@ -230,7 +230,7 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
                                 Log.d(TAG, "ApiPref in if statement is " + apiPref);
                                 Log.d(TAG, "idPref in if statement is " + idPref);
                                 Log.d(TAG, "UsernamePref has been entered");
-                                Intent intent = new Intent(LoginActivity.this, PlayerDetailsActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                             }
                         }
@@ -242,13 +242,13 @@ public class LoginActivity extends AppCompatActivity /*, ClickHandler*/ {
                             Log.d("Error.Response", error.toString());
                             //maybe add some user feedback
                             if (error.toString().equals("com.android.volley.AuthFailureError")){
-                                    usernameField.setText("");
-                                    usernameField.setHint(getString(R.string.login_field_username_error_wrong));
-                                    usernameField.setError(getString(R.string.login_field_username_error_wrong));
+                                usernameField.setText("");
+                                usernameField.setHint(getString(R.string.login_field_username_error_wrong));
+                                usernameField.setError(getString(R.string.login_field_username_error_wrong));
 
-                                    passwordField.setText("");
-                                    passwordField.setHint(getString(R.string.login_field_password_error_wrong));
-                                    passwordField.setError(getString(R.string.login_field_password_error_wrong));
+                                passwordField.setText("");
+                                passwordField.setHint(getString(R.string.login_field_password_error_wrong));
+                                passwordField.setError(getString(R.string.login_field_password_error_wrong));
                             }
 
                         }

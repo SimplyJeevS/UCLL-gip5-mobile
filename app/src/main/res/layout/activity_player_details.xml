@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Match name"
         android:textSize="30sp"
         android:textStyle="bold|italic"
@@ -107,6 +107,18 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:text="@string/status_unanswered" />
+
+        <RadioButton
+            android:id="@+id/rbStatusDeclined"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/status_declined" />
+
+        <RadioButton
+            android:id="@+id/rbStatusAvailable"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/status_available" />
     </RadioGroup>
 
     <EditText
@@ -120,7 +132,7 @@
         android:gravity="start|top"
         android:hint="@string/text_message_hint"
         android:inputType="textMultiLine"
-        android:maxLines="3"
+        android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/btnSendMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -141,10 +153,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginEnd="64dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/button_bg"
         android:backgroundTint="@null"
-        android:text="Send message"
+        android:text="@string/send_message_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -153,7 +165,8 @@
         android:id="@+id/lblWillYouBeThere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
+        android:onClick="onBtnMessageClick"
         android:text="@string/status_lable"
         android:textSize="18sp"
         android:textStyle="bold"
